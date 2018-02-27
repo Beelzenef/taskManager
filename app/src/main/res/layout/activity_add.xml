@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget32"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/widget33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre:" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tarea 1"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/widget38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descripción" />
+
+    <EditText
+        android:id="@+id/desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descripcion de la tarea"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/widget34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Importancia:" />
+
+    <EditText
+        android:id="@+id/importancia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Importancia de la tarea"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/widget36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha:" />
+
+    <EditText
+        android:id="@+id/fecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:inputType="date"/>
+
+    <TextView
+        android:id="@+id/widget35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Link:" />
+
+    <EditText
+        android:id="@+id/link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="http://laravel.com"
+        android:textSize="16sp"
+        android:inputType="textUri"/>
+
+    <TextView
+        android:id="@+id/widget37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Imagen:" />
+
+    <EditText
+        android:id="@+id/imagen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Imagen de la tarea"
+        android:textSize="16sp"
+        android:inputType="textUri"/>
+
+    <LinearLayout
+        android:id="@+id/widget39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accept" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+    </LinearLayout>
+</LinearLayout>
