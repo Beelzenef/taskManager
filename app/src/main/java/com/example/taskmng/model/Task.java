@@ -58,24 +58,24 @@ public class Task implements Serializable {
         this.date = date;
     }
 
-    public Task(String name, String desc, String imp, String link, String img, String date) {
+    public Task(String name, String desc, String imp, String fecha, String enlace, String imagen) {
         this.name = name;
         this.desc = desc;
         this.imp = imp;
-        this.link = link;
-        this.img = img;
-        this.date = date;
+        this.date = fecha;
+        this.link = enlace;
+        this.img = imagen;
     }
 
-    public Task(int id, String name, String desc, String imp, String link, String img, String date) {
+    public Task(int id, String name, String desc, String imp, String fecha, String enlace, String imagen) {
         super();
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.imp = imp;
-        this.link = link;
-        this.img = img;
-        this.date = date;
+        this.date = fecha;
+        this.link = enlace;
+        this.img = imagen;
     }
 
     public Task() {}

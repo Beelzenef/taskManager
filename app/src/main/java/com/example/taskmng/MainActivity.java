@@ -84,11 +84,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void downloadSites() {
         progreso = new ProgressDialog(this);
         progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progreso.setMessage("Connecting . . .");
+        progreso.setMessage("Conectando...");
         progreso.setCancelable(false);
         progreso.show();
 
-        Call<ArrayList<Task>> call = ApiAdapter.getInstance().getSites();
+        Call<ArrayList<Task>> call = ApiAdapter.getInstance().getTasks();
         call.enqueue(new Callback<ArrayList<Task>>() {
             @Override
             public void onResponse(Call<ArrayList<Task>> call, Response<ArrayList<Task>> response) {
@@ -96,10 +96,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (response.isSuccessful()) {
                     tasks = response.body();
                     adapter.setSites(response.body());
-                    showMessage("Sites downloaded ok");
+                    showMessage("Descarga correcta");
                 } else {
                     StringBuilder message = new StringBuilder();
-                    message.append("Download error: " + response.code());
+                    message.append("Error de descarga: " + response.code());
                     if (response.body() != null)
                         message.append("\n" + response.body());
                     if (response.errorBody() != null)
@@ -116,11 +116,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onFailure(Call<ArrayList<Task>> call, Throwable t) {
                 progreso.dismiss();
                 if (t != null)
-                    showMessage("Failure in the communication\n" + t.getMessage());
+                    showMessage("Fallo en la comunicación:\n" + t.getMessage());
             }
         });
         progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progreso.setMessage("Connecting . . .");
+        progreso.setMessage("Conectando...");
         progreso.setCancelable(false);
         progreso.show();
     }
@@ -144,18 +144,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == ADD_CODE)
             if (resultCode == OK) {
                 task.setId(data.getIntExtra("id", 1));
-                task.setName(data.getStringExtra("name"));
-                task.setDesc(data.getStringExtra("link"));
-                task.setImp(data.getStringExtra("email"));
+                task.setName(data.getStringExtra("nombre"));
+                task.setDesc(data.getStringExtra("desc"));
+                task.setImp(data.getStringExtra("importancia"));
+                task.setDate(data.getStringExtra("fecha"));
+                task.setLink(data.getStringExtra("enlace"));
+                task.setImg(data.getStringExtra("img"));
+
                 adapter.add(task);
             }
 
         if (requestCode == UPDATE_CODE)
             if (resultCode == OK) {
                 task.setId(data.getIntExtra("id", 1));
-                task.setName(data.getStringExtra("name"));
-                task.setDesc(data.getStringExtra("link"));
-                task.setImp(data.getStringExtra("email"));
+                task.setName(data.getStringExtra("nombre"));
+                task.setDesc(data.getStringExtra("desc"));
+                task.setImp(data.getStringExtra("importancia"));
+                task.setDate(data.getStringExtra("fecha"));
+                task.setLink(data.getStringExtra("enlace"));
+                task.setImg(data.getStringExtra("img"));
                 adapter.modifyAt(task, positionClicked);
             }
     }
@@ -192,15 +199,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void confirm(final int idSite, String name, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(name + "\nDo you want to delete?")
-                .setTitle("Delete")
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+        builder.setMessage(name + "\n¿Seguro que quieres borrar??")
+                .setTitle("Borrando tarea")
+                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                         connection(idSite, position);
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }
@@ -209,9 +216,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void connection(int idSite, final int position) {
-        Call<ResponseBody> call = ApiAdapter.getInstance().deleteSite(position);
+        Call<ResponseBody> call = ApiAdapter.getInstance().deleteTask(position);
         progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progreso.setMessage("Connecting . . .");
+        progreso.setMessage("Conectando...");
         progreso.setCancelable(false);
         progreso.show();
         call.enqueue(new Callback<ResponseBody>() {
@@ -220,10 +227,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 progreso.dismiss();
                 if (response.isSuccessful()) {
                     adapter.removeAt(position);
-                    showMessage("Task deleted OK");
+                    showMessage("Tarea eliminada correctamente");
                 } else {
                     StringBuilder message = new StringBuilder();
-                    message.append("Error deleting a site: " + response.code());
+                    message.append("Error eliminando una tarea: " + response.code());
                     if (response.body() != null)
                         message.append("\n" + response.body());
                     if (response.errorBody() != null)
@@ -240,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 progreso.dismiss();
                 if (t != null)
-                    showMessage("Failure in the communication\n" + t.getMessage());
+                    showMessage("Fallo en la comunicación\n" + t.getMessage());
             }
         });
 

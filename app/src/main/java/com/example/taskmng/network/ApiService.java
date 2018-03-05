@@ -20,19 +20,16 @@ import retrofit2.http.Path;
 
 public interface ApiService {
     @GET("api/tasks")
-    Call<ArrayList<Task>> getSites();
-
-    @GET("acceso/tasks.json")
-    Call<ArrayList<Task>> getLocalSites();
+    Call<ArrayList<Task>> getTasks();
 
     @POST("api/tasks")
-    Call<Task> createSite(@Body Task task);
+    Call<Task> createNewTask(@Body Task task);
 
     @PUT("api/tasks/{id}")
-    Call<Task> updateSite(@Body Task task, @Path("id") int id);
+    Call<Task> updateTask(@Body Task task, @Path("id") int id);
 
     @DELETE("api/tasks/{id}")
-    Call<ResponseBody> deleteSite(@Path("id") int id);
+    Call<ResponseBody> deleteTask(@Path("id") int id);
 
     @POST("api/email")
     Call<ResponseBody> sendEmail(@Body Email email);

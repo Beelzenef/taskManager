@@ -83,7 +83,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             f = fecha.getText().toString();
             imp = importancia.getText().toString();
             if (n.isEmpty() || l.isEmpty())
-                Toast.makeText(this, "Please, fill the empty fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Rellena los campos vacíos", Toast.LENGTH_SHORT).show();
             else {
                 s.setName(n);
                 s.setDesc(d);
@@ -102,11 +102,11 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     private void connection(Task s) {
         progreso = new ProgressDialog(this);
         progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progreso.setMessage("Connecting . . .");
+        progreso.setMessage("Conectando");
         progreso.setCancelable(false);
         progreso.show();
 
-        Call<Task> call = ApiAdapter.getInstance().updateSite(s, s.getId());
+        Call<Task> call = ApiAdapter.getInstance().updateTask(s, s.getId());
         call.enqueue(this);
     }
 
@@ -118,19 +118,19 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             Intent i = new Intent();
             Bundle mBundle = new Bundle();
             mBundle.putInt("id", task.getId());
-            mBundle.putString("name", task.getName());
+            mBundle.putString("nombre", task.getName());
             mBundle.putString("desc", task.getDesc());
             mBundle.putString("imp", task.getImp());
-            mBundle.putString("link", task.getDesc());
-            mBundle.putString("img", task.getImg());
             mBundle.putString("fecha", task.getDate());
+            mBundle.putString("enlace", task.getLink());
+            mBundle.putString("imagen", task.getImg());
             i.putExtras(mBundle);
             setResult(OK, i);
             finish();
-            showMessage("Modified task ok");
+            showMessage("Modificación correcta");
         } else {
             StringBuilder message = new StringBuilder();
-            message.append("Download error: " + response.code());
+            message.append("Error en la descarga: " + response.code());
             if (response.body() != null)
                 message.append("\n" + response.body());
             if (response.errorBody() != null)
@@ -147,7 +147,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     public void onFailure(Call<Task> call, Throwable t) {
         progreso.dismiss();
         if (t != null)
-            showMessage("Failure in the communication\n" + t.getMessage());
+            showMessage("Fallo en la comunicación\n" + t.getMessage());
     }
 
     private void showMessage(String s) {
