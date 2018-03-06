@@ -8,12 +8,12 @@ import java.io.Serializable;
 
 public class Task implements Serializable {
     private int id;
-    private String name;
+    private String nombre;
     private String desc;
-    private String imp;
-    private String link;
-    private String img;
-    private String date;
+    private String importancia;
+    private String enlace;
+    private String imagen;
+    private String fecha;
 
     public int getId() {
         return id;
@@ -21,11 +21,11 @@ public class Task implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     public String getDesc() {
         return desc;
@@ -33,55 +33,55 @@ public class Task implements Serializable {
     public void setDesc(String desc) {
         this.desc = desc;
     }
-    public String getImp() {
-        return imp;
+    public String getImportancia() {
+        return importancia;
     }
-    public void setImp(String imp) {
-        this.imp = imp;
+    public void setImportancia(String importancia) {
+        this.importancia = importancia;
     }
-    public String getLink() {
-        return link;
+    public String getEnlace() {
+        return enlace;
     }
-    public void setLink(String link) {
-        this.link = link;
+    public void setEnlace(String enlace) {
+        this.enlace = enlace;
     }
-    public String getImg() {
-        return img;
+    public String getImagen() {
+        return imagen;
     }
-    public void setImg(String img) {
-        this.img = img;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
-    public String getDate() {
-        return date;
+    public String getFecha() {
+        return fecha;
     }
-    public void setDate(String date) {
-        this.date = date;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
-    public Task(String name, String desc, String imp, String fecha, String enlace, String imagen) {
-        this.name = name;
+    public Task(String nombre, String desc, String importancia, String fecha, String enlace, String imagen) {
+        this.nombre = nombre;
         this.desc = desc;
-        this.imp = imp;
-        this.date = fecha;
-        this.link = enlace;
-        this.img = imagen;
+        this.importancia = importancia;
+        this.fecha = fecha;
+        this.enlace = enlace;
+        this.imagen = imagen;
     }
 
-    public Task(int id, String name, String desc, String imp, String fecha, String enlace, String imagen) {
+    public Task(int id, String nombre, String desc, String importancia, String fecha, String enlace, String imagen) {
         super();
         this.id = id;
-        this.name = name;
+        this.nombre = nombre;
         this.desc = desc;
-        this.imp = imp;
-        this.date = fecha;
-        this.link = enlace;
-        this.img = imagen;
+        this.importancia = importancia;
+        this.fecha = fecha;
+        this.enlace = enlace;
+        this.imagen = imagen;
     }
 
     public Task() {}
 
     @Override
     public String toString() {
-        return  name + '\n' + imp;
+        return  nombre + '\n' + importancia;
     }
 }

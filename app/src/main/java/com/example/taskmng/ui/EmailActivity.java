@@ -37,8 +37,7 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
     Button accept;
     @BindView(R.id.cancel)
     Button cancel;
-    //EditText from, password, to, subject, message;
-    //Button accept, cancel;
+
     ProgressDialog progreso;
 
     @Override
@@ -47,13 +46,7 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_email);
 
         ButterKnife.bind(this);
-        //from = (EditText) findViewById(R.id.from);
-        //password = (EditText) findViewById(R.id.password);
-        //to = (EditText) findViewById(R.id.to);
-        //subject = (EditText) findViewById(R.id.subject);
-        //message = (EditText) findViewById(R.id.message);
-        //accept = (Button) findViewById(R.id.accept);
-        //cancel = (Button) findViewById(R.id.cancel);
+
         accept.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
@@ -69,12 +62,8 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
             String s = subject.getText().toString();
             String m = message.getText().toString();
 
-            //if (t.isEmpty() || s.isEmpty() || m.isEmpty()) {
-            //    showMessage("Please, fill to, subject and message");
-            //} else {
-                Email email = new Email(t, s, m);
-                connection(email);
-            //}
+            Email email = new Email(t, s, m);
+            connection(email);
         }
 
         if (v == cancel) {
@@ -85,7 +74,7 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
     private void connection(Email e) {
         progreso = new ProgressDialog(this);
         progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progreso.setMessage("Connecting . . .");
+        progreso.setMessage("Conectando...");
         progreso.setCancelable(false);
         progreso.show();
 
@@ -100,10 +89,10 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
             Intent i = new Intent();
             setResult(OK, i);
             finish();
-            showMessage("Email sent ok");
+            showMessage("Email enviado correctamente");
         } else {
             StringBuilder message = new StringBuilder();
-            message.append("Error sending the mail: " + response.code());
+            message.append("Error enviando el mail: " + response.code());
             if (response.body() != null)
                 message.append("\n" + response.body());
             if (response.errorBody() != null)
@@ -120,7 +109,7 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
     public void onFailure(Call<ResponseBody> call, Throwable t) {
         progreso.dismiss();
         if (t != null)
-            showMessage("Failure in the communication\n" + t.getMessage());
+            showMessage("Fallo en la comunicación\n" + t.getMessage());
     }
 
     private void showMessage(String s) {

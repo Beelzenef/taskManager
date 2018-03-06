@@ -41,8 +41,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     Button accept;
     @BindView(R.id.cancel)
     Button cancel;
-    //EditText name, link, emailSite;
-    //Button accept, cancel;
 
     ProgressDialog progreso;
 
@@ -72,7 +70,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             if (n.isEmpty() || l.isEmpty())
                 Toast.makeText(this, "Faltan campos por rellenar", Toast.LENGTH_SHORT).show();
             else {
-                s = new Task(n, d, imp, l, i, f);
+                s = new Task(n, d, imp, f, l, i);
                 connection(s);
             }
         }
@@ -99,19 +97,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             Intent i = new Intent();
             Bundle mBundle = new Bundle();
             mBundle.putInt("id", task.getId());
-            mBundle.putString("nombre", task.getName());
+            mBundle.putString("nombre", task.getNombre());
             mBundle.putString("desc", task.getDesc());
-            mBundle.putString("imp", task.getImp());
-            mBundle.putString("fecha", task.getDate());
-            mBundle.putString("enlace", task.getLink());
-            mBundle.putString("imagen", task.getImg());
+            mBundle.putString("importancia", task.getImportancia());
+            mBundle.putString("fecha", task.getFecha());
+            mBundle.putString("enlace", task.getEnlace());
+            mBundle.putString("imagen", task.getImagen());
             i.putExtras(mBundle);
             setResult(OK, i);
             finish();
             showMessage("Tarea añadida correctamente");
         } else {
             StringBuilder message = new StringBuilder();
-            message.append("Error en la descarga: " + response.code());
+            message.append("Error en la operación: " + response.code());
             if (response.body() != null)
                 message.append("\n" + response.body());
             if (response.errorBody() != null)

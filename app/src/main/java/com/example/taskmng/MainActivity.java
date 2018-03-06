@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onLongClick(View view, int position) {
                 Intent emailIntent = new Intent(getApplicationContext(), EmailActivity.class);
-                emailIntent.putExtra(MAIL, adapter.getAt(position).getImp());
+                emailIntent.putExtra(MAIL, adapter.getAt(position).getImportancia());
                 startActivity(emailIntent);
             }
         }));
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == fab) {
-            Intent i = new Intent(this, AddActivity.class);
+            Intent i = new Intent(MainActivity.this, AddActivity.class);
             startActivityForResult(i, ADD_CODE);
         }
     }
@@ -144,12 +144,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == ADD_CODE)
             if (resultCode == OK) {
                 task.setId(data.getIntExtra("id", 1));
-                task.setName(data.getStringExtra("nombre"));
+                task.setNombre(data.getStringExtra("nombre"));
                 task.setDesc(data.getStringExtra("desc"));
-                task.setImp(data.getStringExtra("importancia"));
-                task.setDate(data.getStringExtra("fecha"));
-                task.setLink(data.getStringExtra("enlace"));
-                task.setImg(data.getStringExtra("img"));
+                task.setImportancia(data.getStringExtra("importancia"));
+                task.setFecha(data.getStringExtra("fecha"));
+                task.setEnlace(data.getStringExtra("enlace"));
+                task.setImagen(data.getStringExtra("imagen"));
 
                 adapter.add(task);
             }
@@ -157,12 +157,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == UPDATE_CODE)
             if (resultCode == OK) {
                 task.setId(data.getIntExtra("id", 1));
-                task.setName(data.getStringExtra("nombre"));
+                task.setNombre(data.getStringExtra("nombre"));
                 task.setDesc(data.getStringExtra("desc"));
-                task.setImp(data.getStringExtra("importancia"));
-                task.setDate(data.getStringExtra("fecha"));
-                task.setLink(data.getStringExtra("enlace"));
-                task.setImg(data.getStringExtra("img"));
+                task.setImportancia(data.getStringExtra("importancia"));
+                task.setFecha(data.getStringExtra("fecha"));
+                task.setEnlace(data.getStringExtra("enlace"));
+                task.setImagen(data.getStringExtra("imagen"));
                 adapter.modifyAt(task, positionClicked);
             }
     }
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         positionClicked = position;
                         return true;
                     case R.id.delete_site:
-                        confirm(adapter.getAt(position).getId(), adapter.getAt(position).getName(), position);
+                        confirm(adapter.getAt(position).getId(), adapter.getAt(position).getNombre(), position);
                         return true;
                     default:
                         return false;
@@ -192,14 +192,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void modify(Task s) {
-        Intent i = new Intent(this, UpdateActivity.class);
+        Intent i = new Intent(MainActivity.this, UpdateActivity.class);
         i.putExtra("task", s);
         startActivityForResult(i, UPDATE_CODE);
     }
 
     private void confirm(final int idSite, String name, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(name + "\n¿Seguro que quieres borrar??")
+        builder.setMessage(name + "\n¿Seguro que quieres borrar?")
                 .setTitle("Borrando tarea")
                 .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -250,8 +250,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     showMessage("Fallo en la comunicación\n" + t.getMessage());
             }
         });
-
-
     }
-
 }

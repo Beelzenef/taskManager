@@ -4,15 +4,18 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.taskmng.R;
 import com.example.taskmng.model.Task;
 import com.example.taskmng.network.ApiAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -39,14 +42,14 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     EditText fecha;
     @BindView(R.id.imagen)
     EditText image;
+    @BindView(R.id.imgV_Descargas)
+    ImageView imgV_Descargas;
 
     @BindView(R.id.accept)
     Button accept;
     @BindView(R.id.cancel)
     Button cancel;
-    //EditText name, link, emailSite;
-    //TextView idSite;
-    //Button accept, cancel;
+
     ProgressDialog progreso;
     Task s;
 
@@ -62,13 +65,18 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
         Intent i = getIntent();
         s = (Task) i.getSerializableExtra("task");
-        idSite.setText(String.valueOf(s.getId()));
-        name.setText(s.getName());
-        link.setText(s.getDesc());
-        image.setText(s.getImp());
+        idSite.setText(Integer.toString(s.getId()));
+        name.setText(s.getNombre());
+        link.setText(s.getEnlace());
+        if (!TextUtils.isEmpty(s.getImagen())) {
+            image.setText(s.getImagen());
+            picasso(s.getImagen());
+        }
         desc.setText(s.getDesc());
-        importancia.setText(s.getImp());
-        fecha.setText(s.getDate());
+        importancia.setText(s.getImportancia());
+        fecha.setText(s.getFecha());
+
+
     }
 
     @Override
@@ -85,13 +93,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             if (n.isEmpty() || l.isEmpty())
                 Toast.makeText(this, "Rellena los campos vacíos", Toast.LENGTH_SHORT).show();
             else {
-                s.setName(n);
-                s.setDesc(d);
-                s.setImp(imp);
-                s.setDate(f);
-                s.setImg(i);
-                s.setLink(l);
-
+                s = new Task(n, d, imp, f, l, i);
                 connection(s);
             }
         }
@@ -102,7 +104,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     private void connection(Task s) {
         progreso = new ProgressDialog(this);
         progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progreso.setMessage("Conectando");
+        progreso.setMessage("Conectando...");
         progreso.setCancelable(false);
         progreso.show();
 
@@ -118,12 +120,12 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             Intent i = new Intent();
             Bundle mBundle = new Bundle();
             mBundle.putInt("id", task.getId());
-            mBundle.putString("nombre", task.getName());
+            mBundle.putString("nombre", task.getNombre());
             mBundle.putString("desc", task.getDesc());
-            mBundle.putString("imp", task.getImp());
-            mBundle.putString("fecha", task.getDate());
-            mBundle.putString("enlace", task.getLink());
-            mBundle.putString("imagen", task.getImg());
+            mBundle.putString("importancia", task.getImportancia());
+            mBundle.putString("fecha", task.getFecha());
+            mBundle.putString("enlace", task.getEnlace());
+            mBundle.putString("imagen", task.getImagen());
             i.putExtras(mBundle);
             setResult(OK, i);
             finish();
@@ -151,6 +153,11 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showMessage(String s) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    }
+
+    private void picasso(String link) {
+        Picasso.with(getApplicationContext()).load(link).placeholder(R.drawable.placeholder).error(R.drawable.placeholder_error)
+                .resize(300, 300).into(imgV_Descargas);
     }
 }

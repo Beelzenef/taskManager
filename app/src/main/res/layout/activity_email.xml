@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="paco.portada@gmail.com" />
+        android:text="elena.guzbla@gmail.com" />
     <requestFocus />
     <TextView
         android:id="@+id/textView4"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="hola" />
+        android:text="Saluditos" />
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="un mensaje de prueba" />
+        android:text="Esto es un mensajillo" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
