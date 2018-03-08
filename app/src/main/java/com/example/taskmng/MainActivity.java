@@ -215,8 +215,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.show();
     }
 
-    private void connection(int idSite, final int position) {
-        Call<ResponseBody> call = ApiAdapter.getInstance().deleteTask(position);
+    private void connection(int idTask, final int position) {
+        //Call<ResponseBody> call = ApiAdapter.getInstance().deleteTask(position);
+        Call<ResponseBody> call = ApiAdapter.getInstance().deleteTask(idTask);
         progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progreso.setMessage("Conectando...");
         progreso.setCancelable(false);
